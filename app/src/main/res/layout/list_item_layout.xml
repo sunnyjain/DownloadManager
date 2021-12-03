@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:animateLayoutChanges="true"
+    android:background="@color/item_cell_color">
+
+    <TextView
+        android:id="@+id/task_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Task Id - 12312" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/task_percent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_id"
+        tools:progress="50" />
+
+    <TextView
+        android:id="@+id/task_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_percent"
+        tools:text="Status - In Progress." />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/pause_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/btn_txt_pause"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_status" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/resume_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="6dp"
+        android:text="@string/btn_txt_resume"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/pause_task"
+        app:layout_constraintTop_toBottomOf="@+id/task_status" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/stop_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="6dp"
+        android:text="@string/btn_txt_stop"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/resume_task"
+        app:layout_constraintTop_toBottomOf="@+id/task_status" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

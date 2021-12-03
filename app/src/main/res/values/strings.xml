@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Download-Manager-App</string>
+    <string name="cancel_download">Cancel</string>
+    <string name="notification_title">Data Downloading</string>
+    <string name="ticker_text">ticker text</string>
+    <string name="download_manager_service">Download Manager Service running</string>
+    <string name="btn_txt_pause">Pause</string>
+    <string name="btn_txt_resume">Resume</string>
+    <string name="btn_txt_stop">Stop</string>
+    <string name="txt_task_id">Task Id - %s</string>
+    <string name="txt_task_status">Status - %s</string>
+</resources>
