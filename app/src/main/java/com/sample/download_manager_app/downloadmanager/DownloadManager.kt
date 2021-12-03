@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
  * This will act as api that will be used to query download process and other things..
  * */
 class DownloadManager(context: Context) {
-    private var saveFolderLocation: String = "MyDownloads"
+    private var saveFolderLocation: String = ""
     private var repo: DownloadManagerRepository = InjectorUtils.getDownloadManagerRepository(context)
 
     init {
