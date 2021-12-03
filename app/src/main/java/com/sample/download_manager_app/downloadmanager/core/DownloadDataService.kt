@@ -151,10 +151,10 @@ class DownloadDataService : Service() {
                 downloadApiService.getUrl(task.url).downloadToFileWithProgress(
                     applicationContext,
                     filename,
-                    progress
-                ).collect { download ->
+                    progress)
+                    .retry(1)
+                    .collect { download ->
                     when (download) {
-                        //todo: not needed
                         is Download.Initialize -> {
                             Log.e("##DM", "TASK INIT")
                             repo.updateTask(task.apply {
