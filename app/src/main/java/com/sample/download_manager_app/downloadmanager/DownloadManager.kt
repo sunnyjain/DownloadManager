@@ -109,5 +109,10 @@ class DownloadManager(context: Context) {
         }
     }
 
-
+    private suspend fun pauseAllDownloadingTasksOnNetworkFailure(tasks: List<Task>) {
+        tasks.forEach { task ->
+            task.apply { this.state = TaskStates.NETWORK_FAILURE_PAUSE }
+                repo.updateTask(task)
+        }
+    }
 }

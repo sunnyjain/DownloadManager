@@ -108,7 +108,7 @@ class DownloadDataService : Service() {
         }
 
         repo.getTaskList().observeForever { taskList ->
-            downloadData(taskList.filter { it.state == TaskStates.INIT })
+            downloadData(taskList.filter { it.state == TaskStates.INIT || it.state == TaskStates.NETWORK_FAILURE_PAUSE})
         }
     }
 
