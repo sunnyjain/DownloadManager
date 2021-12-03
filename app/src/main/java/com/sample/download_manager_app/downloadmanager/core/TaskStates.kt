@@ -8,8 +8,9 @@ object TaskStates {
    const val DOWNLOAD_FINISHED = 4
    const val END         = 5
 
-   //action states
+   
    const val PAUSING = 6
    const val CANCEL = 7
    const val RESUMING = 8
+   const val NETWORK_FAILURE_PAUSE = 9
 }
