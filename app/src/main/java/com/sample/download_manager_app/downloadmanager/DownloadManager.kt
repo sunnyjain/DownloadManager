@@ -72,7 +72,8 @@ class DownloadManager(context: Context) {
      * */
     fun enqueueDownload(url: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            repo.insertTask(Task(0, url, "",0, TaskStates.INIT,  0, false))
+            if(ConnectivityService.instance.isOnline())
+                repo.insertTask(Task(0, url, "",0, TaskStates.INIT,  0, false))
         }
     }
 
