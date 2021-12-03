@@ -16,6 +16,9 @@ interface TaskDao {
     @Query("DELETE FROM task WHERE id IN (:taskIds)")
     suspend fun removeDownloadTask(taskIds: List<Long>): Void
 
+    @Query("SELECT * FROM task WHERE state = (:state)")
+    suspend fun getTasksByState(state: Int): List<Task>
+
     @Update
     suspend fun updateDownloadTask(task: Task): Void
 }

@@ -34,4 +34,8 @@ class DownloadManagerRepository constructor(private val taskDao: TaskDao): Downl
         taskDao.updateDownloadTask(task)
     }
 
+    override suspend fun getTaskListByState(state: Int): List<Task> {
+        return taskDao.getTasksByState(state)
+    }
+
 }

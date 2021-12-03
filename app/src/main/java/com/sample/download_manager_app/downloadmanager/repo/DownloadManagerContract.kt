@@ -10,5 +10,6 @@ interface DownloadManagerContract {
         suspend fun insertTask(task: Task)
         suspend fun removeTask(taskIds: List<Long>)
         suspend fun updateTask(task: Task)
+        suspend fun getTaskListByState(state: Int): List<Task>
     }
 }
