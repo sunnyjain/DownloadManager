@@ -21,10 +21,36 @@ import kotlinx.coroutines.launch
 class DownloadManager(context: Context) {
     private var saveFolderLocation: String = ""
     private var repo: DownloadManagerRepository = InjectorUtils.getDownloadManagerRepository(context)
-
+    private val connService: ConnectivityService by lazy {
+        ConnectivityService.instance.initializeWithApplicationContext(context)
+        ConnectivityService.instance
+    }
     init {
         //start the foreground process.
-        if (!DownloadDataService.IS_RUNNING) {
+        connService.registerNetworkCallback(object: ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                Log.e("##DM", "NETWORK AVAILABLE")
+                startForegroundService(context)
+            }
+
+            override fun onLost(network: Network) {
+                if(connService.isOnline()) {
+                    CoroutineScope(Dispatchers.Default).launch {
+                        pauseAllDownloadingTasksOnNetworkFailure(
+                            repo.getTaskListByState(TaskStates.DOWNLOADING))
+                    }
+                    context.stopService(Intent(context, DownloadDataService::class.java))
+                    Log.e("##DM", "NETWORK LOST")
+                }
+                else Log.e("##DM", "NETWORK MIGHT BE CHANGED OR SOMETHING")
+            }
+        })
+        startForegroundService(context)
+
+    }
+
+    fun startForegroundService(context: Context) {
+        if (connService.isOnline() && !DownloadDataService.IS_RUNNING) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 context.startForegroundService(Intent(context, DownloadDataService::class.java))
             } else {
