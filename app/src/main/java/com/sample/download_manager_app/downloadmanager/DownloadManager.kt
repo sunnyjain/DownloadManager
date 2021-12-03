@@ -2,21 +2,25 @@ package com.sample.download_manager_app.downloadmanager
 
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.Network
 import android.os.Build
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.sample.download_manager_app.downloadmanager.core.DownloadDataService
 import com.sample.download_manager_app.downloadmanager.core.TaskStates
 import com.sample.download_manager_app.downloadmanager.models.Task
 import com.sample.download_manager_app.downloadmanager.repo.DownloadManagerRepository
 import com.sample.download_manager_app.downloadmanager.utils.InjectorUtils
+import com.sample.download_manager_app.downloadmanager.utils.networkutil.ConnectivityService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
 /**
- * This class is responsible for starting the enqueue url and initiate the download the process.
- * This will act as api that will be used to query download process and other things..
+ * This class is responsible for starting the download the process.
+ * This will act as api that will be used to query download process, pause and stop/cancel the download..
  * */
 class DownloadManager(context: Context) {
     private var saveFolderLocation: String = ""
@@ -85,6 +89,9 @@ class DownloadManager(context: Context) {
         this.saveFolderLocation = location
     }
 
+    /***
+     * method to pause the download process.
+     * */
     fun pauseDownload(task: Task) {
         task.state = TaskStates.PAUSING
         repo.taskLiveData.value = task
@@ -93,6 +100,9 @@ class DownloadManager(context: Context) {
         }
     }
 
+    /***
+     * method to stop the download process.
+     * */
     fun stopDownload(task: Task) {
         task.state = TaskStates.CANCEL
         repo.taskLiveData.value = task
@@ -100,7 +110,9 @@ class DownloadManager(context: Context) {
             repo.updateTask(task)
         }
     }
-
+    /***
+     * method to resume the download process.
+     * */
     fun resumeDownload(task: Task) {
         task.state = TaskStates.RESUMING
         repo.taskLiveData.value = task

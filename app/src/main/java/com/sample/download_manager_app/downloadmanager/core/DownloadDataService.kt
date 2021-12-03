@@ -12,7 +12,6 @@ import com.sample.download_manager_app.R
 import com.sample.download_manager_app.downloadmanager.models.Task
 import com.sample.download_manager_app.downloadmanager.repo.DownloadManagerRepository
 import com.sample.download_manager_app.downloadmanager.utils.InjectorUtils
-import com.sample.download_manager_app.downloadmanager.utils.networkutil.ConnectivityService
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import java.io.File
@@ -38,7 +37,6 @@ class DownloadDataService : Service() {
     override fun onCreate() {
         super.onCreate()
         repo = InjectorUtils.getDownloadManagerRepository(applicationContext)
-        ConnectivityService.instance.initializeWithApplicationContext(applicationContext)
         downloadApiService = InjectorUtils.getRetrofitService().create(DownloadApiService::class.java)
         startForegroundService()
     }
@@ -88,11 +86,9 @@ class DownloadDataService : Service() {
 
         IS_RUNNING = true
 
-        //todo:check the status of processes that are in pause states and update their states to ready.
-
+        /* Observes the mutable live data and carry out the operations for the respective Task. */
         repo.taskLiveData.observeForever {
             taskAtHand ->
-
             when(taskAtHand.state) {
                 TaskStates.PAUSING -> {
                     pauseDownload(taskAtHand)

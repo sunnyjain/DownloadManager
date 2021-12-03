@@ -16,6 +16,14 @@ class DownloadManagerRepository constructor(private val taskDao: TaskDao): Downl
             }
     }
 
+    /**
+     * This mutable live data is useful for operations like pause, stop, resume.
+     * Consider that the user interacted with the pause button the mutable live data will set the Task and hold the
+     * Task object. This livedata is observed in service class. Accordingly we then process the information.
+     *
+     * Interactions like Pause, Stop/cancel or resume the download are handled once. This livedata is used to
+     * change/handle the state and accordingly carry out the operation.
+     * */
     val taskLiveData: MutableLiveData<Task> = MutableLiveData()
 
     override fun getTaskList(): LiveData<MutableList<Task>> {
