@@ -92,7 +92,7 @@ fun ResponseBody.downloadToFileWithProgress(context: Context, filename: String,
 
             emit(Download.Finished(file))
         } catch (ex: Exception) {
-            emit(Download.Error(ex))
+            Log.e("##DM", ex.message.toString())
         } finally {
             // check if download was successful
             if (deleteFile) {
